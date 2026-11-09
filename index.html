@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ramesh Jakkula | Data Analytics & Risk Intelligence</title>
   
-  <!-- Google Fonts: Bebas Neue (Comic Display), Space Grotesk (Tech Editorial), JetBrains Mono (Code/Data) -->
+  <!-- Google Fonts: Bebas Neue, Space Grotesk, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@
       background-size: 16px 16px;
     }
 
-    /* Ambient chromatic gradient lines */
+    /* Top chromatic laser bar */
     body::before {
       content: "";
       position: fixed;
@@ -66,7 +66,6 @@
       color: inherit;
     }
 
-    /* Typography */
     .title-font {
       font-family: 'Bebas Neue', sans-serif;
       letter-spacing: 1.5px;
@@ -77,7 +76,7 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Comic Cut-Out Container */
+    /* Comic Card Box */
     .comic-card {
       background: var(--bg-card);
       border: 3px solid var(--verse-border);
@@ -89,7 +88,7 @@
       transform: translate(-3px, -3px);
     }
 
-    /* Chromatic Aberration Glitch on Hover */
+    /* Glitch Chromatic Aberration Text */
     .glitch-text {
       position: relative;
       display: inline-block;
@@ -137,26 +136,24 @@
       font-size: 0.8rem;
       text-transform: uppercase;
       border: 2px solid #000;
-      transform: rotate(-2deg);
       box-shadow: 2px 2px 0px #000;
     }
-    .badge-cyan { background: var(--verse-cyan); color: #000; }
+    .badge-cyan { background: var(--verse-cyan); color: #000; transform: rotate(-1.5deg); }
     .badge-magenta { background: var(--verse-magenta); color: #fff; transform: rotate(1.5deg); }
     .badge-yellow { background: var(--verse-yellow); color: #000; transform: rotate(-1deg); }
 
-    /* Layout wrapper */
     .container {
       max-width: 1180px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* Header / Nav */
+    /* Header */
     header {
       padding: 24px 0;
       position: sticky;
       top: 0;
-      background: rgba(10, 11, 18, 0.92);
+      background: rgba(10, 11, 18, 0.94);
       backdrop-filter: blur(8px);
       z-index: 100;
       border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
@@ -172,9 +169,6 @@
       font-size: 1.8rem;
       letter-spacing: 2px;
       color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .logo span {
@@ -189,26 +183,77 @@
       font-size: 0.95rem;
     }
 
-    .nav-links a {
-      transition: color 0.2s;
-    }
-
     .nav-links a:hover {
       color: var(--verse-yellow);
       text-shadow: 2px 2px 0 var(--verse-magenta);
     }
 
-    /* Hero Section */
+    /* ==========================================================
+       HERO PROFILE SECTION (IMAGE + NAME ON THE SIDE)
+       ========================================================== */
     .hero {
-      padding: 80px 0 60px;
+      padding: 60px 0 50px;
+    }
+
+    .hero-profile-panel {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 40px;
+      align-items: center;
+      background: #10121d;
+      border: 4px solid #fff;
+      box-shadow: 10px 10px 0px var(--verse-cyan);
+      padding: 40px;
       position: relative;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 40px;
-      align-items: center;
+    /* Comic Cut-Out Photo Frame */
+    .profile-photo-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      border: 3px solid #000;
+      background: var(--bg-dark);
+      box-shadow: 8px 8px 0px var(--verse-magenta);
+      transform: rotate(-1.5deg);
+      transition: transform 0.25s ease;
+    }
+
+    .profile-photo-wrapper:hover {
+      transform: rotate(0deg) scale(1.02);
+      box-shadow: 10px 10px 0px var(--verse-yellow);
+    }
+
+    .profile-photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border: 3px solid #fff;
+    }
+
+    /* Comic Dossier Tag across the photo */
+    .photo-tag {
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(2deg);
+      background: var(--verse-yellow);
+      color: #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0px #000;
+      white-space: nowrap;
+    }
+
+    /* Info Side (Name & Profile Details) */
+    .profile-info-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .action-bubble {
@@ -216,33 +261,48 @@
       color: #000;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1rem;
-      padding: 6px 14px;
+      padding: 5px 14px;
       border: 2px solid #000;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       box-shadow: 4px 4px 0px #000;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
+      width: fit-content;
     }
 
-    .hero h1 {
-      font-size: clamp(3rem, 7vw, 5.5rem);
+    .hero-name {
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
       line-height: 0.95;
-      margin-bottom: 16px;
       text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
-    .hero h1 span.cyan {
+    .hero-name span.first {
+      color: #fff;
+    }
+
+    .hero-name span.last {
       color: var(--verse-cyan);
-      text-shadow: 3px 3px 0px var(--verse-magenta);
+      text-shadow: 4px 4px 0px var(--verse-magenta);
+    }
+
+    .hero-role-bar {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--verse-yellow);
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
     .hero-tagline {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.05rem;
       color: var(--verse-muted);
       margin-bottom: 24px;
-      max-width: 600px;
+      max-width: 650px;
     }
 
     .hero-tagline strong {
@@ -257,8 +317,8 @@
 
     .btn {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      padding: 10px 24px;
+      font-size: 1.3rem;
+      padding: 10px 22px;
       letter-spacing: 1px;
       border: 3px solid #000;
       cursor: pointer;
@@ -295,45 +355,17 @@
       transform: translate(-3px, -3px);
     }
 
-    /* Hero Right: Holographic Comic Card */
-    .hero-panel {
-      padding: 28px;
-      box-shadow: var(--hard-shadow-cyan);
-      transform: rotate(1.5deg);
-      position: relative;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 2px dashed rgba(255, 255, 255, 0.2);
-      padding-bottom: 12px;
-      margin-bottom: 18px;
-      font-size: 0.85rem;
-    }
-
-    .telemetry-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      padding: 10px;
-      background: rgba(255,255,255,0.03);
-      border-left: 4px solid var(--verse-magenta);
-    }
-
-    /* Section Styling */
+    /* Section Headers */
     section {
-      padding: 70px 0;
+      padding: 65px 0;
     }
 
     .section-header {
-      margin-bottom: 40px;
-      position: relative;
+      margin-bottom: 36px;
     }
 
     .section-header h2 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
       line-height: 1;
       display: inline-block;
       background: #000;
@@ -348,25 +380,23 @@
       font-size: 1.05rem;
     }
 
-    /* Skills Comic Grid */
+    /* Skills Grid */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
     }
 
     .skill-card {
       padding: 24px;
-      box-shadow: var(--hard-shadow-white);
     }
-
     .skill-card:nth-child(1) { border-color: var(--verse-cyan); box-shadow: var(--hard-shadow-cyan); }
     .skill-card:nth-child(2) { border-color: var(--verse-magenta); box-shadow: var(--hard-shadow-magenta); }
     .skill-card:nth-child(3) { border-color: var(--verse-yellow); box-shadow: var(--hard-shadow-yellow); }
     .skill-card:nth-child(4) { border-color: #fff; box-shadow: var(--hard-shadow-white); }
 
     .skill-card i {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       margin-bottom: 12px;
       display: inline-block;
     }
@@ -381,11 +411,11 @@
       font-size: 0.95rem;
     }
 
-    /* Experience & Education - Comic Split */
+    /* Experience & Education */
     .exp-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 32px;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 30px;
     }
 
     .timeline-box {
@@ -397,7 +427,7 @@
       position: relative;
       padding-left: 24px;
       border-left: 3px dashed var(--verse-cyan);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .timeline-item::before {
@@ -419,7 +449,7 @@
     }
 
     .timeline-item h4 {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       color: #fff;
     }
 
@@ -436,14 +466,14 @@
     }
 
     .timeline-item ul li {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    /* Projects / Data Showcase */
+    /* Projects Grid */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
+      gap: 26px;
     }
 
     .project-card {
@@ -453,22 +483,10 @@
       justify-content: space-between;
       box-shadow: var(--hard-shadow-cyan);
       position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::after {
-      content: "// DATA_INSIGHT";
-      position: absolute;
-      right: 14px;
-      bottom: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: rgba(255, 255, 255, 0.15);
-      font-weight: 700;
     }
 
     .project-card h3 {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       line-height: 1.1;
       margin: 12px 0 8px;
     }
@@ -487,20 +505,19 @@
       padding: 50px 30px;
       text-align: center;
       box-shadow: 10px 10px 0px var(--verse-magenta);
-      position: relative;
     }
 
     .contact-banner h2 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
       line-height: 1;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .contact-banner p {
       max-width: 600px;
-      margin: 0 auto 30px;
+      margin: 0 auto 26px;
       color: var(--verse-muted);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     .contact-links {
@@ -510,25 +527,30 @@
       flex-wrap: wrap;
     }
 
-    /* Footer */
     footer {
-      padding: 40px 0;
+      padding: 35px 0;
       text-align: center;
       border-top: 2px dashed rgba(255, 255, 255, 0.15);
       color: var(--verse-muted);
       font-size: 0.9rem;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 868px) {
-      .hero-grid, .exp-grid {
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .hero-profile-panel {
+        grid-template-columns: 1fr;
+        padding: 28px;
+        gap: 30px;
+      }
+      .profile-photo-wrapper {
+        max-width: 260px;
+        margin: 0 auto;
+      }
+      .exp-grid {
         grid-template-columns: 1fr;
       }
-      .hero-panel {
-        transform: rotate(0deg);
-      }
       .nav-links {
-        display: none; /* simple mobile view */
+        display: none;
       }
     }
   </style>
@@ -542,33 +564,56 @@
         RAMESH <span>JAKKULA</span>
       </a>
       <ul class="nav-links code-font">
-        <li><a href="#about">// 01. ORIGIN</a></li>
+        <li><a href="#about">// 01. PROFILE</a></li>
         <li><a href="#skills">// 02. ARSENAL</a></li>
         <li><a href="#experience">// 03. MISSIONS</a></li>
         <li><a href="#projects">// 04. PROJECTS</a></li>
         <li><a href="#contact">// 05. DISPATCH</a></li>
       </ul>
-      <a href="mailto:rameshjakkula@example.com" class="badge badge-yellow">OPEN TO WORK</a>
+      <a href="#contact" class="badge badge-yellow">OPEN TO WORK</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
   <main class="container">
-    <section class="hero">
-      <div class="hero-grid">
-        <div>
+    
+    <!-- ==========================================================
+         HERO SECTION: PHOTO CARD + NAME ON THE SIDE
+         ========================================================== -->
+    <section class="hero" id="about">
+      <div class="hero-profile-panel">
+        
+        <!-- Photo Side with Spider-Verse Comic Outline -->
+        <div class="profile-photo-wrapper">
+          <!-- 
+            REPLACE 'profile.jpg' with your photo filename: 
+            Place your image file in the same directory as this index.html file!
+          -->
+          <img 
+            src="profile.png" 
+            alt="Ramesh Jakkula" 
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80';"
+          />
+          <div class="photo-tag">AGENT ID: RJ-2026 // HYD</div>
+        </div>
+
+        <!-- Name & Info Side -->
+        <div class="profile-info-side">
           <div class="action-bubble">
             <i class="ph-bold ph-shield-check"></i>
-            FRAUD PATTERN ANALYST & DATA STRATEGIST
+            DATA ANALYTICS & PAYMENT FRAUD SPECIALIST
           </div>
           
-          <h1 class="title-font">
-            CRACKING <span class="cyan glitch-text" data-text="PATTERNS">PATTERNS</span>.<br />
-            TURNING DATA INTO IMPACT.
+          <h1 class="hero-name title-font">
+            <span class="first glitch-text" data-text="RAMESH">RAMESH</span> 
+            <span class="last glitch-text" data-text="JAKKULA">JAKKULA</span>
           </h1>
 
+          <div class="hero-role-bar code-font">
+            <span>EXCEL</span> • <span>SQL</span> • <span>POWER BI</span> • <span>PYTHON</span>
+          </div>
+
           <p class="hero-tagline">
-            Detail-oriented professional with specialized experience in <strong>Payment Risk & Fraud Investigation</strong> at <strong>Wipro</strong>. Bridging high-stakes transaction forensics with modern analytical tools: <strong>Excel, SQL, Power BI & Python</strong>.
+            Detail-oriented professional with specialized experience in <strong>Payment Risk and Fraud Analysis at Wipro</strong>. Skilled in analyzing transactional telemetry, detecting threat patterns, and transforming raw datasets into actionable executive insights.
           </p>
 
           <div class="action-buttons">
@@ -576,107 +621,76 @@
               <i class="ph-bold ph-lightning"></i> VIEW PROJECTS
             </a>
             <a href="#contact" class="btn btn-secondary">
-              <i class="ph-bold ph-paper-plane-tilt"></i> INITIATE CONTACT
+              <i class="ph-bold ph-paper-plane-tilt"></i> GET IN TOUCH
             </a>
           </div>
-        </div>
 
-        <!-- Dimension Status / Telemetry Box -->
-        <div class="comic-card hero-panel">
-          <div class="panel-header code-font">
-            <span>SECTOR: HYDERABAD [IND]</span>
-            <span style="color: var(--verse-cyan);">STATUS: ACTIVE</span>
-          </div>
-
-          <div class="telemetry-row">
-            <div>
-              <div class="code-font" style="font-size: 0.75rem; color: var(--verse-muted);">PRIMARY FUNCTION</div>
-              <strong>Payment Risk & Fraud (L1)</strong>
-            </div>
-            <span class="badge badge-magenta">WIPRO</span>
-          </div>
-
-          <div class="telemetry-row">
-            <div>
-              <div class="code-font" style="font-size: 0.75rem; color: var(--verse-muted);">CORE SPECIALIZATION</div>
-              <strong>Anomaly Detection & Forensics</strong>
-            </div>
-            <i class="ph-bold ph-fingerprint" style="color: var(--verse-cyan); font-size: 1.4rem;"></i>
-          </div>
-
-          <div class="telemetry-row">
-            <div>
-              <div class="code-font" style="font-size: 0.75rem; color: var(--verse-muted);">EDUCATION METRIC</div>
-              <strong>BCA Computer Science (7.7 CGPA)</strong>
-            </div>
-            <span class="badge badge-yellow">NIZAM COL.</span>
-          </div>
-
-          <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: var(--verse-muted);" class="code-font">
-            > Ready to deploy analytical thinking to complex business intelligence challenges.
+          <div class="code-font" style="margin-top: 18px; font-size: 0.8rem; color: var(--verse-cyan);">
+            📍 LOCATION: HYDERABAD, TELANGANA, INDIA
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- Skills / Weaponry Section -->
+    <!-- Technical Arsenal -->
     <section id="skills">
       <div class="section-header">
         <h2 class="title-font glitch-text" data-text="TECH ARSENAL">TECH ARSENAL</h2>
-        <p class="section-subtitle">Tactical toolkit for deciphering transaction behavior, mitigating vulnerabilities, and visualizing metrics.</p>
+        <p class="section-subtitle">Analytical weapons for identifying anomalies and communicating business telemetry.</p>
       </div>
 
       <div class="skills-grid">
         <div class="comic-card skill-card">
           <i class="ph-bold ph-file-sql" style="color: var(--verse-cyan);"></i>
           <h3 class="title-font">SQL QUERIES</h3>
-          <p>Writing multi-table joins, subqueries, and window functions to uncover suspicious transaction spikes and user velocity.</p>
+          <p>Advanced joins, nested subqueries, grouping aggregations, and velocity triggers to spot fraudulent transactions.</p>
         </div>
 
         <div class="comic-card skill-card">
           <i class="ph-bold ph-chart-polar" style="color: var(--verse-magenta);"></i>
           <h3 class="title-font">POWER BI & EXCEL</h3>
-          <p>Advanced Pivot Tables, VLOOKUP/XLOOKUP, DAX, dynamic dashboards, and risk monitoring heatmaps for stakeholder reports.</p>
+          <p>DAX measures, Power Query data hygiene, interactive KPI reporting, XLOOKUP, Pivot models, and risk heatmaps.</p>
         </div>
 
         <div class="comic-card skill-card">
           <i class="ph-bold ph-terminal-window" style="color: var(--verse-yellow);"></i>
           <h3 class="title-font">PYTHON FOR DATA</h3>
-          <p>Data wrangling with Pandas and NumPy, data cleaning, automated reporting routines, and exploratory pattern profiling.</p>
+          <p>Pandas, NumPy, automated ETL data processing, exploratory data analysis (EDA), and anomaly inspection scripts.</p>
         </div>
 
         <div class="comic-card skill-card">
           <i class="ph-bold ph-shield-warning" style="color: #fff;"></i>
           <h3 class="title-font">FRAUD & RISK</h3>
-          <p>Trust & Safety operations, chargeback mitigation, AML parameters, high-risk case escalations, and audit compliance.</p>
+          <p>Payment risk indicators, Trust & Safety protocols, high-risk case escalations, chargeback triage, and audit hygiene.</p>
         </div>
       </div>
     </section>
 
-    <!-- Missions / Experience & Education -->
+    <!-- Missions: Experience & Education -->
     <section id="experience">
       <div class="section-header">
         <h2 class="title-font glitch-text" data-text="FIELD MISSIONS">FIELD MISSIONS</h2>
-        <p class="section-subtitle">Verified operational history in risk assessment and academia.</p>
+        <p class="section-subtitle">Verified professional track record in fraud analysis and core academics.</p>
       </div>
 
       <div class="exp-grid">
         <!-- Experience Panel -->
         <div class="comic-card timeline-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-            <h3 class="title-font" style="font-size: 2rem;">WORK EXPERIENCE</h3>
-            <span class="badge badge-cyan">VERIFIED EXP</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 class="title-font" style="font-size: 2rem;">EXPERIENCE</h3>
+            <span class="badge badge-cyan">WIPRO</span>
           </div>
 
           <div class="timeline-item">
             <div class="timeline-meta code-font">JAN 2025 – MAR 2026 · 1 YR 3 MOS</div>
             <h4>Production Agent – Payment Risk & Fraud (L1)</h4>
-            <h5>Wipro · Full-time · Hyderabad, India</h5>
+            <h5>Wipro · Full-time · Hyderabad, India (On-site)</h5>
             <ul>
-              <li>Analyzed large-scale payment transactions to identify emerging fraud vectors, suspicious velocity, and irregular payment behaviors.</li>
-              <li>Conducted deep-dive manual reviews on flagged high-risk accounts and escalated threat profiles in accordance with defined security policies.</li>
-              <li>Maintained strict accuracy standards while processing high-volume datasets under strict SLA timelines.</li>
-              <li>Drafted comprehensive risk intelligence summaries and collaborated cross-functionally with Product and Trust & Safety engineering to sharpen detection heuristics.</li>
+              <li>Analyzed payment transaction data to identify emerging fraud patterns and high-risk indicators.</li>
+              <li>Investigated suspicious activities and escalated high-risk cases based on defined security parameters.</li>
+              <li>Maintained data accuracy while processing large transactional datasets under strict compliance.</li>
+              <li>Prepared analytical summaries to support risk assessment and collaborated with teams to optimize fraud heuristics.</li>
             </ul>
           </div>
         </div>
@@ -684,67 +698,65 @@
         <!-- Education & Certifications -->
         <div style="display: flex; flex-direction: column; gap: 24px;">
           <div class="comic-card" style="padding: 24px; box-shadow: var(--hard-shadow-yellow);">
-            <span class="badge badge-yellow" style="margin-bottom: 12px;">ACADEMICS</span>
+            <span class="badge badge-yellow" style="margin-bottom: 12px;">EDUCATION</span>
             <h4 class="title-font" style="font-size: 1.8rem;">BACHELOR OF COMPUTER APPLICATIONS (BCA)</h4>
-            <div style="color: var(--verse-cyan); font-weight: 700; margin-bottom: 6px;">Nizam College, Hyderabad</div>
-            <div class="code-font" style="color: var(--verse-muted); font-size: 0.9rem; margin-bottom: 8px;">Jul 2021 – May 2024</div>
-            <p style="font-size: 0.95rem;">Graduated with <strong>7.7 CGPA</strong>. Deep focus on Computer Science foundations, Relational Database Management (RDBMS), logic building, and algorithms.</p>
+            <div style="color: var(--verse-cyan); font-weight: 700; margin-bottom: 4px;">Nizam College, Hyderabad</div>
+            <div class="code-font" style="color: var(--verse-muted); font-size: 0.9rem; margin-bottom: 8px;">Jul 2021 – May 2024 · 7.7 CGPA</div>
+            <p style="font-size: 0.95rem;">Computer Science major focused on relational database architecture, programming logic, data structures, and algorithms.</p>
           </div>
 
           <div class="comic-card" style="padding: 24px; box-shadow: var(--hard-shadow-cyan);">
-            <span class="badge badge-cyan" style="margin-bottom: 12px;">CERTIFIED</span>
+            <span class="badge badge-cyan" style="margin-bottom: 12px;">CERTIFICATION</span>
             <h4 class="title-font" style="font-size: 1.8rem;">INTRO TO PROGRAMMING</h4>
             <div style="color: var(--verse-yellow); font-weight: 700;">Kaggle</div>
-            <div class="code-font" style="color: var(--verse-muted); font-size: 0.9rem; margin-bottom: 10px;">Issued Oct 2026</div>
-            <p style="font-size: 0.95rem;">Mastered computational thinking, functional structures, data type manipulation, and programmatic algorithmic logic.</p>
+            <div class="code-font" style="color: var(--verse-muted); font-size: 0.9rem; margin-bottom: 8px;">Issued Oct 2026</div>
+            <p style="font-size: 0.95rem;">Validated competence in programmatic logic, modular coding, functions, and structured data handling.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Practical Projects -->
     <section id="projects">
       <div class="section-header">
         <h2 class="title-font glitch-text" data-text="PRACTICAL PROJECTS">PRACTICAL PROJECTS</h2>
-        <p class="section-subtitle">Real-world data manipulation, risk modeling, and business insight reports.</p>
+        <p class="section-subtitle">Real-world data manipulation, risk modeling, and business intelligence.</p>
       </div>
 
       <div class="projects-grid">
-        <!-- Project 1 -->
         <div class="comic-card project-card">
           <div>
             <span class="badge badge-magenta">FRAUD ANALYTICS</span>
-            <h3 class="title-font">PAYMENT FRAUD DETECTION & ANOMALY QUERY SUITE</h3>
+            <h3 class="title-font">PAYMENT FRAUD DETECTION & RISK MODEL</h3>
             <p style="color: var(--verse-muted); font-size: 0.95rem;">
-              Engineered SQL queries and Python scripts simulating payment processor telemetry to identify card-not-present fraud, velocity anomalies, and geographic IP mismatches.
+              Simulated payment processor logs to query card-not-present fraud, transaction velocity anomalies, and geographic IP mismatches.
             </p>
           </div>
           <div>
             <div class="project-tags code-font">
               <span class="badge badge-yellow">SQL</span>
               <span class="badge badge-cyan">PYTHON</span>
-              <span class="badge">RISK MODEL</span>
+              <span class="badge">EDA</span>
             </div>
             <a href="https://github.com" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 8px 12px;">
-              <i class="ph-bold ph-github-logo"></i> INSPECT CODE
+              <i class="ph-bold ph-github-logo"></i> INSPECT PROJECT
             </a>
           </div>
         </div>
 
-        <!-- Project 2 -->
         <div class="comic-card project-card">
           <div>
             <span class="badge badge-cyan">POWER BI / DAX</span>
-            <h3 class="title-font">TRANSACTION RISK & SLA KPI DASHBOARD</h3>
+            <h3 class="title-font">TRANSACTION RISK & SLA MONITORING</h3>
             <p style="color: var(--verse-muted); font-size: 0.95rem;">
-              Interactive executive dashboard monitoring chargeback rates, high-risk false-positive ratios, dispute win percentages, and agent escalation turnaround times.
+              Interactive business dashboard tracking chargeback rates, high-risk false positives, and operational escalation turnaround times.
             </p>
           </div>
           <div>
             <div class="project-tags code-font">
               <span class="badge badge-yellow">POWER BI</span>
               <span class="badge badge-magenta">DAX</span>
-              <span class="badge">HEATMAPS</span>
+              <span class="badge">KPIs</span>
             </div>
             <a href="https://github.com" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 8px 12px;">
               <i class="ph-bold ph-chart-bar"></i> VIEW DASHBOARD
@@ -752,13 +764,12 @@
           </div>
         </div>
 
-        <!-- Project 3 -->
         <div class="comic-card project-card">
           <div>
             <span class="badge badge-yellow">ADVANCED EXCEL</span>
-            <h3 class="title-font">E-COMMERCE REVENUE & CHARGEBACK RECONCILER</h3>
+            <h3 class="title-font">PAYMENT LEDGER & CHARGEBACK RECONCILER</h3>
             <p style="color: var(--verse-muted); font-size: 0.95rem;">
-              Automated financial reconciliation model handling 50k+ rows of payment logs using Power Query, nested lookups, and dynamic scenario modeling.
+              Automated financial reconciliation model processing 50k+ rows of payment logs using Power Query, nested lookups, and dynamic scenario modeling.
             </p>
           </div>
           <div>
@@ -775,31 +786,31 @@
       </div>
     </section>
 
-    <!-- Contact Dispatch Banner -->
+    <!-- Contact Dispatch -->
     <section id="contact">
       <div class="contact-banner">
         <span class="badge badge-yellow" style="margin-bottom: 16px;">SIGNAL TRANSMISSION</span>
-        <h2 class="title-font glitch-text" data-text="READY TO SCALE YOUR DATA?">
-          READY TO SCALE YOUR DATA?
+        <h2 class="title-font glitch-text" data-text="READY TO SCALE YOUR ANALYTICS?">
+          READY TO SCALE YOUR ANALYTICS?
         </h2>
         <p>
-          Whether you're hunting for a high-precision <strong>Data Analyst</strong>, need someone to decipher risk patterns, or want to collaborate on analytical projects—my line is open.
+          Whether you have an open Data Analyst role, a fraud detection problem, or a practical project to build together—let's connect.
         </p>
 
         <div class="contact-links">
           <a href="mailto:rameshjakkula@example.com" class="btn btn-primary">
             <i class="ph-bold ph-envelope"></i> DISPATCH EMAIL
           </a>
-          <a href="https://linkedin.com/in/" target="_blank" class="btn btn-secondary">
+          <a href="https://linkedin.com" target="_blank" class="btn btn-secondary">
             <i class="ph-bold ph-linkedin-logo"></i> LINKEDIN
           </a>
-          <a href="https://github.com/" target="_blank" class="btn btn-secondary">
+          <a href="https://github.com" target="_blank" class="btn btn-secondary">
             <i class="ph-bold ph-github-logo"></i> GITHUB
           </a>
         </div>
         
-        <div class="code-font" style="margin-top: 30px; font-size: 0.85rem; color: var(--verse-muted);">
-          📍 LOCATION: HYDERABAD, TELANGANA, INDIA
+        <div class="code-font" style="margin-top: 26px; font-size: 0.85rem; color: var(--verse-muted);">
+          📍 HYDERABAD, TELANGANA, INDIA
         </div>
       </div>
     </section>
@@ -809,16 +820,15 @@
   <footer>
     <div class="container">
       <p class="code-font">
-        DESIGN SYSTEM: MULTIVERSE BEN-DAY GRID // RAMESH JAKKULA &copy; <span id="year"></span>
+        MULTIVERSE DATA INTERFACE // RAMESH JAKKULA &copy; <span id="year"></span>
       </p>
     </div>
   </footer>
 
   <script>
-    // Auto-update footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Comic cursor click pop effect
+    // Click effect (pop-art circle burst)
     document.addEventListener('click', (e) => {
       const burst = document.createElement('div');
       burst.style.position = 'fixed';
