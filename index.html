@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ramesh Jakkula | Data Analytics & Risk Intelligence</title>
+  
+  <!-- Google Fonts: Bebas Neue (Comic Display), Space Grotesk (Tech Editorial), JetBrains Mono (Code/Data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    /* ==========================================================
+       SPIDER-VERSE / POP-ART COMIC COLOR SYSTEM
+       ========================================================== */
+    :root {
+      --bg-dark: #0a0b12;
+      --bg-card: #121422;
+      --verse-cyan: #00f0ff;
+      --verse-magenta: #ff0055;
+      --verse-yellow: #ffe600;
+      --verse-white: #f8fafc;
+      --verse-border: #ffffff;
+      --verse-muted: #8c93b0;
+      --halftone-dot: rgba(0, 240, 255, 0.08);
+      
+      --hard-shadow-cyan: 5px 5px 0px var(--verse-cyan);
+      --hard-shadow-magenta: 5px 5px 0px var(--verse-magenta);
+      --hard-shadow-yellow: 5px 5px 0px var(--verse-yellow);
+      --hard-shadow-white: 5px 5px 0px #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--verse-white);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      /* Halftone Ben-Day pattern */
+      background-image: radial-gradient(var(--halftone-dot) 1.5px, transparent 1.5px);
+      background-size: 16px 16px;
+    }
+
+    /* Ambient chromatic gradient lines */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--verse-magenta), var(--verse-yellow), var(--verse-cyan));
+      z-index: 9999;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Typography */
+    .title-font {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Comic Cut-Out Container */
+    .comic-card {
+      background: var(--bg-card);
+      border: 3px solid var(--verse-border);
+      position: relative;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s;
+    }
+
+    .comic-card:hover {
+      transform: translate(-3px, -3px);
+    }
+
+    /* Chromatic Aberration Glitch on Hover */
+    .glitch-text {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch-text:hover::before,
+    .glitch-text:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .glitch-text:hover::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--verse-magenta);
+      animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
+    }
+
+    .glitch-text:hover::after {
+      left: -2px;
+      text-shadow: 2px 0 var(--verse-cyan);
+      animation: glitch-anim-2 0.4s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+      0% { clip: rect(10px, 9999px, 44px, 0); }
+      50% { clip: rect(30px, 9999px, 60px, 0); }
+      100% { clip: rect(70px, 9999px, 90px, 0); }
+    }
+    @keyframes glitch-anim-2 {
+      0% { clip: rect(60px, 9999px, 15px, 0); }
+      50% { clip: rect(15px, 9999px, 80px, 0); }
+      100% { clip: rect(40px, 9999px, 20px, 0); }
+    }
+
+    /* Sticker Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      border: 2px solid #000;
+      transform: rotate(-2deg);
+      box-shadow: 2px 2px 0px #000;
+    }
+    .badge-cyan { background: var(--verse-cyan); color: #000; }
+    .badge-magenta { background: var(--verse-magenta); color: #fff; transform: rotate(1.5deg); }
+    .badge-yellow { background: var(--verse-yellow); color: #000; transform: rotate(-1deg); }
+
+    /* Layout wrapper */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header / Nav */
+    header {
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 11, 18, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      color: var(--verse-cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--verse-yellow);
+      text-shadow: 2px 2px 0 var(--verse-magenta);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .action-bubble {
+      background: var(--verse-yellow);
+      color: #000;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      padding: 6px 14px;
+      border: 2px solid #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 4px 4px 0px #000;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 span.cyan {
+      color: var(--verse-cyan);
+      text-shadow: 3px 3px 0px var(--verse-magenta);
+    }
+
+    .hero-tagline {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--verse-muted);
+      margin-bottom: 24px;
+      max-width: 600px;
+    }
+
+    .hero-tagline strong {
+      color: #fff;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      padding: 10px 24px;
+      letter-spacing: 1px;
+      border: 3px solid #000;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .btn-primary {
+      background: var(--verse-cyan);
+      color: #000;
+      box-shadow: var(--hard-shadow-magenta);
+    }
+
+    .btn-primary:hover {
+      background: var(--verse-magenta);
+      color: #fff;
+      box-shadow: var(--hard-shadow-yellow);
+      transform: translate(-3px, -3px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border-color: #fff;
+      box-shadow: var(--hard-shadow-cyan);
+    }
+
+    .btn-secondary:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: var(--hard-shadow-magenta);
+      transform: translate(-3px, -3px);
+    }
+
+    /* Hero Right: Holographic Comic Card */
+    .hero-panel {
+      padding: 28px;
+      box-shadow: var(--hard-shadow-cyan);
+      transform: rotate(1.5deg);
+      position: relative;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.2);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+    }
+
+    .telemetry-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding: 10px;
+      background: rgba(255,255,255,0.03);
+      border-left: 4px solid var(--verse-magenta);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 70px 0;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      display: inline-block;
+      background: #000;
+      border: 3px solid var(--verse-border);
+      padding: 4px 18px;
+      box-shadow: var(--hard-shadow-magenta);
+    }
+
+    .section-subtitle {
+      color: var(--verse-muted);
+      margin-top: 10px;
+      font-size: 1.05rem;
+    }
+
+    /* Skills Comic Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-card {
+      padding: 24px;
+      box-shadow: var(--hard-shadow-white);
+    }
+
+    .skill-card:nth-child(1) { border-color: var(--verse-cyan); box-shadow: var(--hard-shadow-cyan); }
+    .skill-card:nth-child(2) { border-color: var(--verse-magenta); box-shadow: var(--hard-shadow-magenta); }
+    .skill-card:nth-child(3) { border-color: var(--verse-yellow); box-shadow: var(--hard-shadow-yellow); }
+    .skill-card:nth-child(4) { border-color: #fff; box-shadow: var(--hard-shadow-white); }
+
+    .skill-card i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .skill-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .skill-card p {
+      color: var(--verse-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Experience & Education - Comic Split */
+    .exp-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+    }
+
+    .timeline-box {
+      padding: 30px;
+      box-shadow: var(--hard-shadow-magenta);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 24px;
+      border-left: 3px dashed var(--verse-cyan);
+      margin-bottom: 28px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 4px;
+      width: 15px;
+      height: 15px;
+      background: var(--verse-yellow);
+      border: 2px solid #000;
+    }
+
+    .timeline-meta {
+      font-size: 0.85rem;
+      color: var(--verse-cyan);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .timeline-item h4 {
+      font-size: 1.4rem;
+      color: #fff;
+    }
+
+    .timeline-item h5 {
+      color: var(--verse-yellow);
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .timeline-item ul {
+      padding-left: 18px;
+      color: var(--verse-muted);
+      font-size: 0.95rem;
+    }
+
+    .timeline-item ul li {
+      margin-bottom: 8px;
+    }
+
+    /* Projects / Data Showcase */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--hard-shadow-cyan);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: "// DATA_INSIGHT";
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.15);
+      font-weight: 700;
+    }
+
+    .project-card h3 {
+      font-size: 1.8rem;
+      line-height: 1.1;
+      margin: 12px 0 8px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      margin: 14px 0 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Contact Banner */
+    .contact-banner {
+      background: var(--bg-card);
+      border: 4px solid #fff;
+      padding: 50px 30px;
+      text-align: center;
+      box-shadow: 10px 10px 0px var(--verse-magenta);
+      position: relative;
+    }
+
+    .contact-banner h2 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .contact-banner p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: var(--verse-muted);
+      font-size: 1.1rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      border-top: 2px dashed rgba(255, 255, 255, 0.15);
+      color: var(--verse-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 868px) {
+      .hero-grid, .exp-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-panel {
+        transform: rotate(0deg);
+      }
+      .nav-links {
+        display: none; /* simple mobile view */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="logo title-font glitch-text" data-text="RAMESH JAKKULA">
+        RAMESH <span>JAKKULA</span>
+      </a>
+      <ul class="nav-links code-font">
+        <li><a href="#about">// 01. ORIGIN</a></li>
+        <li><a href="#skills">// 02. ARSENAL</a></li>
+        <li><a href="#experience">// 03. MISSIONS</a></li>
+        <li><a href="#projects">// 04. PROJECTS</a></li>
+        <li><a href="#contact">// 05. DISPATCH</a></li>
+      </ul>
+      <a href="mailto:rameshjakkula@example.com" class="badge badge-yellow">OPEN TO WORK</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="action-bubble">
+            <i class="ph-bold ph-shield-check"></i>
+            FRAUD PATTERN ANALYST & DATA STRATEGIST
+          </div>
+          
+          <h1 class="title-font">
+            CRACKING <span class="cyan glitch-text" data-text="PATTERNS">PATTERNS</span>.<br />
+            TURNING DATA INTO IMPACT.
+          </h1>
+
+          <p class="hero-tagline">
+            Detail-oriented professional with specialized experience in <strong>Payment Risk & Fraud Investigation</strong> at <strong>Wipro</strong>. Bridging high-stakes transaction forensics with modern analytical tools: <strong>Excel, SQL, Power BI & Python</strong>.
+          </p>
+
+          <div class="action-buttons">
+            <a href="#projects" class="btn btn-primary">
+              <i class="ph-bold ph-lightning"></i> VIEW PROJECTS
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <i class="ph-bold ph-paper-plane-tilt"></i> INITIATE CONTACT
+            </a>
+          </div>
+        </div>
+
+        <!-- Dimension Status / Telemetry Box -->
+        <div class="comic-card hero-panel">
+          <div class="panel-header code-font">
+            <span>SECTOR: HYDERABAD [IND]</span>
+            <span style="color: var(--verse-cyan);">STATUS: ACTIVE</span>
+          </div>
+
+          <div class="telemetry-row">
+            <div>
+              <div class="code-font" style="font-size: 0.75rem; color: var(--verse-muted);">PRIMARY FUNCTION</div>
+              <strong>Payment Risk & Fraud (L1)</strong>
+            </div>
+            <span class="badge badge-magenta">WIPRO</span>
+          </div>
+
+          <div class="telemetry-row">
+            <div>
+              <div class="code-font" style="font-size: 0.75rem; color: var(--verse-muted);">CORE SPECIALIZATION</div>
+              <strong>Anomaly Detection & Forensics</strong>
+            </div>
+            <i class="ph-bold ph-fingerprint" style="color: var(--verse-cyan); font-size: 1.4rem;"></i>
+          </div>
+
+          <div class="telemetry-row">
+            <div>
+              <div class="code-font" style="font-size: 0.75rem; color: var(--verse-muted);">EDUCATION METRIC</div>
+              <strong>BCA Computer Science (7.7 CGPA)</strong>
+            </div>
+            <span class="badge badge-yellow">NIZAM COL.</span>
+          </div>
+
+          <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: var(--verse-muted);" class="code-font">
+            > Ready to deploy analytical thinking to complex business intelligence challenges.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills / Weaponry Section -->
+    <section id="skills">
+      <div class="section-header">
+        <h2 class="title-font glitch-text" data-text="TECH ARSENAL">TECH ARSENAL</h2>
+        <p class="section-subtitle">Tactical toolkit for deciphering transaction behavior, mitigating vulnerabilities, and visualizing metrics.</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="comic-card skill-card">
+          <i class="ph-bold ph-file-sql" style="color: var(--verse-cyan);"></i>
+          <h3 class="title-font">SQL QUERIES</h3>
+          <p>Writing multi-table joins, subqueries, and window functions to uncover suspicious transaction spikes and user velocity.</p>
+        </div>
+
+        <div class="comic-card skill-card">
+          <i class="ph-bold ph-chart-polar" style="color: var(--verse-magenta);"></i>
+          <h3 class="title-font">POWER BI & EXCEL</h3>
+          <p>Advanced Pivot Tables, VLOOKUP/XLOOKUP, DAX, dynamic dashboards, and risk monitoring heatmaps for stakeholder reports.</p>
+        </div>
+
+        <div class="comic-card skill-card">
+          <i class="ph-bold ph-terminal-window" style="color: var(--verse-yellow);"></i>
+          <h3 class="title-font">PYTHON FOR DATA</h3>
+          <p>Data wrangling with Pandas and NumPy, data cleaning, automated reporting routines, and exploratory pattern profiling.</p>
+        </div>
+
+        <div class="comic-card skill-card">
+          <i class="ph-bold ph-shield-warning" style="color: #fff;"></i>
+          <h3 class="title-font">FRAUD & RISK</h3>
+          <p>Trust & Safety operations, chargeback mitigation, AML parameters, high-risk case escalations, and audit compliance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Missions / Experience & Education -->
+    <section id="experience">
+      <div class="section-header">
+        <h2 class="title-font glitch-text" data-text="FIELD MISSIONS">FIELD MISSIONS</h2>
+        <p class="section-subtitle">Verified operational history in risk assessment and academia.</p>
+      </div>
+
+      <div class="exp-grid">
+        <!-- Experience Panel -->
+        <div class="comic-card timeline-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <h3 class="title-font" style="font-size: 2rem;">WORK EXPERIENCE</h3>
+            <span class="badge badge-cyan">VERIFIED EXP</span>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-meta code-font">JAN 2025 – MAR 2026 · 1 YR 3 MOS</div>
+            <h4>Production Agent – Payment Risk & Fraud (L1)</h4>
+            <h5>Wipro · Full-time · Hyderabad, India</h5>
+            <ul>
+              <li>Analyzed large-scale payment transactions to identify emerging fraud vectors, suspicious velocity, and irregular payment behaviors.</li>
+              <li>Conducted deep-dive manual reviews on flagged high-risk accounts and escalated threat profiles in accordance with defined security policies.</li>
+              <li>Maintained strict accuracy standards while processing high-volume datasets under strict SLA timelines.</li>
+              <li>Drafted comprehensive risk intelligence summaries and collaborated cross-functionally with Product and Trust & Safety engineering to sharpen detection heuristics.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Education & Certifications -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div class="comic-card" style="padding: 24px; box-shadow: var(--hard-shadow-yellow);">
+            <span class="badge badge-yellow" style="margin-bottom: 12px;">ACADEMICS</span>
+            <h4 class="title-font" style="font-size: 1.8rem;">BACHELOR OF COMPUTER APPLICATIONS (BCA)</h4>
+            <div style="color: var(--verse-cyan); font-weight: 700; margin-bottom: 6px;">Nizam College, Hyderabad</div>
+            <div class="code-font" style="color: var(--verse-muted); font-size: 0.9rem; margin-bottom: 8px;">Jul 2021 – May 2024</div>
+            <p style="font-size: 0.95rem;">Graduated with <strong>7.7 CGPA</strong>. Deep focus on Computer Science foundations, Relational Database Management (RDBMS), logic building, and algorithms.</p>
+          </div>
+
+          <div class="comic-card" style="padding: 24px; box-shadow: var(--hard-shadow-cyan);">
+            <span class="badge badge-cyan" style="margin-bottom: 12px;">CERTIFIED</span>
+            <h4 class="title-font" style="font-size: 1.8rem;">INTRO TO PROGRAMMING</h4>
+            <div style="color: var(--verse-yellow); font-weight: 700;">Kaggle</div>
+            <div class="code-font" style="color: var(--verse-muted); font-size: 0.9rem; margin-bottom: 10px;">Issued Oct 2026</div>
+            <p style="font-size: 0.95rem;">Mastered computational thinking, functional structures, data type manipulation, and programmatic algorithmic logic.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="title-font glitch-text" data-text="PRACTICAL PROJECTS">PRACTICAL PROJECTS</h2>
+        <p class="section-subtitle">Real-world data manipulation, risk modeling, and business insight reports.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="comic-card project-card">
+          <div>
+            <span class="badge badge-magenta">FRAUD ANALYTICS</span>
+            <h3 class="title-font">PAYMENT FRAUD DETECTION & ANOMALY QUERY SUITE</h3>
+            <p style="color: var(--verse-muted); font-size: 0.95rem;">
+              Engineered SQL queries and Python scripts simulating payment processor telemetry to identify card-not-present fraud, velocity anomalies, and geographic IP mismatches.
+            </p>
+          </div>
+          <div>
+            <div class="project-tags code-font">
+              <span class="badge badge-yellow">SQL</span>
+              <span class="badge badge-cyan">PYTHON</span>
+              <span class="badge">RISK MODEL</span>
+            </div>
+            <a href="https://github.com" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 8px 12px;">
+              <i class="ph-bold ph-github-logo"></i> INSPECT CODE
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="comic-card project-card">
+          <div>
+            <span class="badge badge-cyan">POWER BI / DAX</span>
+            <h3 class="title-font">TRANSACTION RISK & SLA KPI DASHBOARD</h3>
+            <p style="color: var(--verse-muted); font-size: 0.95rem;">
+              Interactive executive dashboard monitoring chargeback rates, high-risk false-positive ratios, dispute win percentages, and agent escalation turnaround times.
+            </p>
+          </div>
+          <div>
+            <div class="project-tags code-font">
+              <span class="badge badge-yellow">POWER BI</span>
+              <span class="badge badge-magenta">DAX</span>
+              <span class="badge">HEATMAPS</span>
+            </div>
+            <a href="https://github.com" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 8px 12px;">
+              <i class="ph-bold ph-chart-bar"></i> VIEW DASHBOARD
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="comic-card project-card">
+          <div>
+            <span class="badge badge-yellow">ADVANCED EXCEL</span>
+            <h3 class="title-font">E-COMMERCE REVENUE & CHARGEBACK RECONCILER</h3>
+            <p style="color: var(--verse-muted); font-size: 0.95rem;">
+              Automated financial reconciliation model handling 50k+ rows of payment logs using Power Query, nested lookups, and dynamic scenario modeling.
+            </p>
+          </div>
+          <div>
+            <div class="project-tags code-font">
+              <span class="badge badge-cyan">EXCEL</span>
+              <span class="badge badge-magenta">POWER QUERY</span>
+              <span class="badge">AUTOMATION</span>
+            </div>
+            <a href="https://github.com" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 8px 12px;">
+              <i class="ph-bold ph-table"></i> INSPECT DATA
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Dispatch Banner -->
+    <section id="contact">
+      <div class="contact-banner">
+        <span class="badge badge-yellow" style="margin-bottom: 16px;">SIGNAL TRANSMISSION</span>
+        <h2 class="title-font glitch-text" data-text="READY TO SCALE YOUR DATA?">
+          READY TO SCALE YOUR DATA?
+        </h2>
+        <p>
+          Whether you're hunting for a high-precision <strong>Data Analyst</strong>, need someone to decipher risk patterns, or want to collaborate on analytical projects—my line is open.
+        </p>
+
+        <div class="contact-links">
+          <a href="mailto:rameshjakkula@example.com" class="btn btn-primary">
+            <i class="ph-bold ph-envelope"></i> DISPATCH EMAIL
+          </a>
+          <a href="https://linkedin.com/in/" target="_blank" class="btn btn-secondary">
+            <i class="ph-bold ph-linkedin-logo"></i> LINKEDIN
+          </a>
+          <a href="https://github.com/" target="_blank" class="btn btn-secondary">
+            <i class="ph-bold ph-github-logo"></i> GITHUB
+          </a>
+        </div>
+        
+        <div class="code-font" style="margin-top: 30px; font-size: 0.85rem; color: var(--verse-muted);">
+          📍 LOCATION: HYDERABAD, TELANGANA, INDIA
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p class="code-font">
+        DESIGN SYSTEM: MULTIVERSE BEN-DAY GRID // RAMESH JAKKULA &copy; <span id="year"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Auto-update footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Comic cursor click pop effect
+    document.addEventListener('click', (e) => {
+      const burst = document.createElement('div');
+      burst.style.position = 'fixed';
+      burst.style.left = `${e.clientX - 10}px`;
+      burst.style.top = `${e.clientY - 10}px`;
+      burst.style.width = '20px';
+      burst.style.height = '20px';
+      burst.style.border = '2px solid var(--verse-yellow)';
+      burst.style.borderRadius = '50%';
+      burst.style.pointerEvents = 'none';
+      burst.style.zIndex = '99999';
+      burst.style.animation = 'burstAnim 0.35s ease-out forwards';
+      document.body.appendChild(burst);
+
+      setTimeout(() => burst.remove(), 350);
+    });
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes burstAnim {
+        0% { transform: scale(0.5); opacity: 1; border-color: var(--verse-cyan); }
+        50% { border-color: var(--verse-magenta); }
+        100% { transform: scale(2.5); opacity: 0; border-color: var(--verse-yellow); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
